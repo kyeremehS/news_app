@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { FlatList, Text, TouchableOpacity, View, StyleSheet } from 'react-native'
-import color from '../../Shared/color'
+import React, { useState } from 'react';
+import { FlatList, Text, TouchableOpacity, View, StyleSheet } from 'react-native';
+import color from '../../Shared/color';
 
 function CategoryTextSlider() {
 
@@ -32,22 +32,24 @@ function CategoryTextSlider() {
     },
   
 
-  ]
+  ];
 
   const onCategoryClick=(id)=>{
     setActive(id);
-  }
+  };
+
   return (
     <View style={{marginTop:10 }}>
         <FlatList
         data = {categoryList}
         horizontal
         showsHorizontalScrollIndicator={false}
+        keyExtractor={(item)=> item.id.toString()} 
         renderItem={({item})=>(
-          <TouchableOpacity key ={item.id} onPress={()=>onCategoryClick(item.id)}>
+          <TouchableOpacity onPress={()=>onCategoryClick(item.id)}>
 
             <Text style={
-              item.id == active?styles.selectText 
+              item.id == active? styles.selectText 
               :styles.unselectText}>{item.name}</Text>
           </TouchableOpacity>
 
@@ -57,7 +59,7 @@ function CategoryTextSlider() {
         />
 
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -76,4 +78,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default CategoryTextSlider
+export default CategoryTextSlider;

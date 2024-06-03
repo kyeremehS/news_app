@@ -19,8 +19,6 @@ function Home() {
       {/* Category List */}
       <CategoryTextSlider />
 
-
-    <CategoryTextSlider />
       {/*Top Headline TopHeadlineSlider*/}
       <TopHeadlineSlider/>
 
