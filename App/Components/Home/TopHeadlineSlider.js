@@ -8,27 +8,29 @@ function TopHeadlineSlider(){
     useEffect(()=>{
         getTopHeadline();
 
-    },[])
+    },[]);
 
     const getTopHeadline=async()=>{
-        const result = (await GlobalApi.getTopHeadline).data;
-    console.log(result);
-    setNewsList(result.articles)
+        const result = (await GlobalApi.getTopHeadline()).data;
+        setNewsList(result.articles);
     }
     return (
+
         <View>
-            <FlatList>
+            <FlatList 
                 data={newsList}
                 renderItem={({item})=>(
-                    <TouchableOpacity style={{width:Dimensions.get('screen'.width*0.80)}}>
+                    <TouchableOpacity style={{width:Dimensions.get('screen').width*0.80}}>
                         <Image source={{uri:item.urlToImage}}
                         style={{height:350}}/>
+                
                     </TouchableOpacity>
-                )
-                }
-            </FlatList>
+                )}
+                keyExtractor={(item,index)=> index.toString()}
+                />
+        
         </View>
-    )
+    );
 }
 
 export default TopHeadlineSlider
