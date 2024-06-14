@@ -6,7 +6,7 @@ const api = create({
 const apiKey='?country=us&apiKey=ffb53a8ae53642acbf88c07f8632281e'
 
 const getTopHeadline=api.get('/top-headlines' + apiKey)
-const getBycategory=(category)=>api.get('/everything?q='+category)
+const getBycategory=(category)=>api.get('/everything?q='+category+'&apiKey=ffb53a8ae53642acbf88c07f8632281e')
 export default{
   getTopHeadline,
   getBycategory

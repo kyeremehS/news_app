@@ -13,11 +13,13 @@ function Home() {
   const [newsList, setNewsList]=useState([])
 
     useEffect(()=>{
-        getTopHeadline();
+        //getTopHeadline();
+        getNewsByCategory('latest')
 
     },[]);
     const getNewsByCategory=async(category)=>{
       const result = (await GlobalApi.getByCategory(category)).data;
+      console.log(result)
       setNewsList(result.articles);
     }
 
