@@ -16,7 +16,9 @@ function Home() {
         //getTopHeadline();
         getNewsByCategory('latest')
 
-    },[]);
+    },[])
+
+
     const getNewsByCategory=async(category)=>{
       const result = (await GlobalApi.getByCategory(category)).data;
       console.log(result)
@@ -26,6 +28,7 @@ function Home() {
     
     const getTopHeadline=async()=>{
         const result = (await GlobalApi.getTopHeadline).data;
+        console.log(result)
         setNewsList(result.articles);
     }  
   
