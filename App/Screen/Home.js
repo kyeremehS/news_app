@@ -1,4 +1,4 @@
-import React, {useState, useEffect,} from 'react'
+import React, {useState, useEffect} from 'react'
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import CategoryTextSlider from '../Components/Home/CategoryTextSlider'
 import Color from '../Shared/color'
@@ -16,7 +16,12 @@ function Home() {
         getTopHeadline();
 
     },[]);
+    const getNewsByCategory=async(category)=>{
+      const result = (await GlobalApi.getByCategory(category)).data;
+      setNewsList(result.articles);
+    }
 
+    
     const getTopHeadline=async()=>{
         const result = (await GlobalApi.getTopHeadline).data;
         setNewsList(result.articles);
@@ -32,7 +37,7 @@ function Home() {
     </View>
 
       {/* Category List */}
-      <CategoryTextSlider />
+      <CategoryTextSlider selectCategory={(category)=>getNewsByCategory(category)} />
 
       {/*Top Headline TopHeadlineSlider*/}
       <TopHeadlineSlider newsList={newsList}/>   
@@ -56,3 +61,5 @@ const styles = StyleSheet.create({
 });
 
 export default Home;
+
+
