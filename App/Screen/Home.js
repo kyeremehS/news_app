@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, ScrollView,ActivityIndicator, Dimensions} from 'react-native'
 import CategoryTextSlider from '../Components/Home/CategoryTextSlider'
 import Color from '../Shared/color'
 import { Ionicons } from '@expo/vector-icons';
@@ -11,18 +11,19 @@ import GlobalApi from '../Services/GlobalApi';
 function Home() {
 
   const [newsList, setNewsList]=useState([])
-
+  const [loading, setLoading]=useState(true)
     useEffect(()=>{
-        //getTopHeadline();
+        getTopHeadline();
         getNewsByCategory('latest')
 
     },[])
 
 
     const getNewsByCategory=async(category)=>{
+      setLoading(true)
       const result = (await GlobalApi.getByCategory(category)).data;
-      console.log(result)
       setNewsList(result.articles);
+      setLoading(false)
     }
 
     
@@ -33,7 +34,9 @@ function Home() {
     }  
   
   return (
-   <ScrollView>
+   <ScrollView
+   style={{backgroundColor:Color.white}}>
+    
     <View style={{display:'flex',flexDirection:"row",
     alignItems:'center',
     justifyContent:'space-between'}}>
@@ -44,12 +47,16 @@ function Home() {
       {/* Category List */}
       <CategoryTextSlider selectCategory={(category)=>getNewsByCategory(category)} />
 
+      {loading?<ActivityIndicator style={{marginTop:Dimensions.get('screen').height*0.45}} size={'large'} color={Color.primary}/>:
+    <View>
       {/*Top Headline TopHeadlineSlider*/}
       <TopHeadlineSlider newsList={newsList}/>   
 
       
       <HeadlineList newsList={newsList}/>
-
+      </View>
+    }    
+    
    </ScrollView>
    
    
